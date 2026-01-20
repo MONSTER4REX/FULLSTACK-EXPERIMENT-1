@@ -1,4 +1,3 @@
-// Check for saved theme preference or default to dark mode
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
@@ -7,25 +6,20 @@ function initializeTheme() {
     }
 }
 
-// Toggle between light and dark mode
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
     
-    // Get current theme
     const isLightMode = document.body.classList.contains('light-mode');
     
-    // Save preference to localStorage
     if (isLightMode) {
         localStorage.setItem('theme', 'light');
     } else {
         localStorage.setItem('theme', 'dark');
     }
     
-    // Update button text and icon
     updateThemeButton();
 }
 
-// Update button appearance based on current theme
 function updateThemeButton() {
     const button = document.querySelector('.theme-toggle');
     const isLightMode = document.body.classList.contains('light-mode');
@@ -37,5 +31,4 @@ function updateThemeButton() {
     }
 }
 
-// Initialize theme when page loads
 window.addEventListener('DOMContentLoaded', initializeTheme);
