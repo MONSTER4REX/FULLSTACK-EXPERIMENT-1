@@ -1,0 +1,111 @@
+<html>
+<head>
+  <title>Student Registration</title>
+  <link rel="stylesheet" href="1.1.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Student Registration</h1>
+
+    <form action="/submit_registration" method="post">
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input id="fullname" name="fullname" type="text" required>
+        <p class="error-msg" id="fullnameError">Must contain 9-50 letters</p>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+        <p class="error-msg" id="emailError">Valid email required</p>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input id="age" name="age" type="number" min="16" max="30" required>
+        <p class="error-msg" id="ageError">Age 16-30 only</p>
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-row">
+          <label><input type="radio" name="gender" value="male" required> Male</label>
+          <label><input type="radio" name="gender" value="female" required> Female</label>
+        </div>
+      </div>
+
+      <button type="submit" class="register">Register</button>
+      <p class="success-message" id="successMsg">Registered Successfully!</p>
+    </form>
+  </div>
+
+  <script>
+    // Get all input fields
+    const fullnameInput = document.getElementById('fullname');
+    const emailInput = document.getElementById('email');
+    const ageInput = document.getElementById('age');
+    const form = document.querySelector('form');
+    const successMsg = document.getElementById('successMsg');
+
+    // Validate on input change
+    fullnameInput.addEventListener('input', function() {
+      const value = this.value.trim();
+      if (value.length < 9 || value.length > 50) {
+        this.classList.add('invalid');
+        document.getElementById('fullnameError').style.display = 'block';
+      } else {
+        this.classList.remove('invalid');
+        document.getElementById('fullnameError').style.display = 'none';
+      }
+    });
+
+    emailInput.addEventListener('input', function() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.value)) {
+        this.classList.add('invalid');
+        document.getElementById('emailError').style.display = 'block';
+      } else {
+        this.classList.remove('invalid');
+        document.getElementById('emailError').style.display = 'none';
+      }
+    });
+
+    ageInput.addEventListener('input', function() {
+      const age = parseInt(this.value);
+      if (age < 16 || age > 30) {
+        this.classList.add('invalid');
+        document.getElementById('ageError').style.display = 'block';
+      } else {
+        this.classList.remove('invalid');
+        document.getElementById('ageError').style.display = 'none';
+      }
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Check if all fields are valid
+      const isFullnameValid = fullnameInput.value.trim().length >= 9 && fullnameInput.value.trim().length <= 50;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isEmailValid = emailRegex.test(emailInput.value);
+      const age = parseInt(ageInput.value);
+      const isAgeValid = age >= 16 && age <= 30;
+
+      if (isFullnameValid && isEmailValid && isAgeValid) {
+        // Show success message
+        successMsg.style.display = 'block';
+
+        // Reset form after 2 seconds
+        setTimeout(function() {
+          form.reset();
+          successMsg.style.display = 'none';
+          fullnameInput.classList.remove('invalid');
+          emailInput.classList.remove('invalid');
+          ageInput.classList.remove('invalid');
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>
