@@ -3,6 +3,33 @@
 
 [[redirects]]
   from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/experiment-1"
+  to = "/EXPERIMENT 1/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/experiment-2"
+  to = "/EXPERIMENT 2/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exp1"
+  to = "/EXPERIMENT 1/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exp2"
+  to = "/EXPERIMENT 2/index.html"
+  status = 200
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
   to = "/exp1.1/1.1.html"
   status = 200
 
